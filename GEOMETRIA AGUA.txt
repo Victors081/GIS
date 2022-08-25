@@ -1,0 +1,26 @@
+
+# MAR
+
+pacman::p_load(osmdata)
+
+osm_lakes.sf <- 
+  opq(bbox = st_bbox(ciudades)) %>%
+  add_osm_feature(key = 'water', value = 'lake') %>%
+  osmdata_sf()
+
+osm_lakes.sf <- osm_lakes.sf$osm_multipolygons
+
+osm_rivers.sf <- 
+  opq(bbox = st_bbox(ciudades)) %>%
+  add_osm_feature(key = 'waterway', value = 'river') %>%
+  osmdata_sf()
+
+osm_rivers.sf <- osm_rivers.sf$osm_lines
+
+
+osm_sea.sf <- 
+  opq(bbox = st_bbox(ciudades)) %>%
+  add_osm_feature(key = 'waterway', value = 'sea') %>%
+  osmdata_sf()
+
+osm_sea.sf <- osm_sea.sf$osm_lines
